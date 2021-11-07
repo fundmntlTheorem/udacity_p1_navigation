@@ -1,0 +1,19 @@
+{
+    "base_name": "final_model",
+    "algorithms": [
+        []
+    ],
+    "replay_buffer_size": 1e5,
+    "batch_size": 64,
+    "gamma": 0.99,
+    "tau": 1e-3,
+    "learning_rate": 1e-4,
+    "learn_every": 4,
+    "num_episodes": 2000,
+    "max_time": 1000,
+    "eps_start": 1.0,
+    "eps_end": 0.01,
+    "eps_decay": 0.995,
+    "alpha": 0.5,
+    "beta": 0.5
+}
