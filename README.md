@@ -47,6 +47,7 @@ The arguments to the navigator program are provided using a .json file, with the
 ```python
 {
     "base_name": "final_model",     # A base file name given to the output networks.  For hyper-parameter tuning, each output network is post-pended with an integer 0, 1, ..., k
+    "is_dueling": false,            # whether the dueling-DQN network architecture is used, or a simpler network
     "algorithms": [],               # list of 0 or more algorithm features, from this list : ["double_dqn", "prioritized_replay"].  The base behavior uses DQN
     "replay_buffer_size": 1e5,      # size of the replay buffer from which transitions are sampled
     "batch_size": 64,               # size of sampling batch siz

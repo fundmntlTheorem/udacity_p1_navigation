@@ -1,12 +1,15 @@
 import numpy as np
 import random
 from collections import namedtuple, deque
-from model import QNetwork
+from model import QNetwork, DuelingQNetwork
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+def get_network(is_dueling):
+    return DuelingQNetwork if is_dueling else QNetwork
 
 class Agent():
     """Interacts with and learns from the environment."""
@@ -24,9 +27,10 @@ class Agent():
         self.action_size = action_size
         self.config = config
         print("Using device {}".format(device))
+        network_class = get_network(config['is_dueling'])
         # Q-Network
-        self.qnetwork_local = QNetwork(state_size, action_size).to(device)
-        self.qnetwork_target = QNetwork(state_size, action_size).to(device)
+        self.qnetwork_local = network_class(state_size, action_size).to(device)
+        self.qnetwork_target = network_class(state_size, action_size).to(device)
         self.little_bit = torch.tensor(1e-10).to(device)
         self.weight_normalizer = torch.tensor(1./config['replay_buffer_size']).to(device)
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=config['learning_rate'])
