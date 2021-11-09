@@ -27,7 +27,7 @@ class Agent():
         self.action_size = action_size
         self.config = config
         print("Using device {}".format(device))
-        network_class = get_network(config['is_dueling'])
+        network_class = get_network(config['is_dueling'] if 'is_dueling' in config else False)
         # Q-Network
         self.qnetwork_local = network_class(state_size, action_size).to(device)
         self.qnetwork_target = network_class(state_size, action_size).to(device)
